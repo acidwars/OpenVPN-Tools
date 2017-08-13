@@ -1,0 +1,6 @@
+#!/bin/bash
+# This script can be executed when a client connects to the server
+DATE=$(date "+%m-%d %H:%M:%S")
+/usr/bin/logger -p local3.notice -t UP $common_name REMOTE $ifconfig_pool_remote_ip FROM $untrusted_ip
+echo "$DATE $common_name/$untrusted_ip" >> /var/log/openvpn/"$common_name".log
+exit 0

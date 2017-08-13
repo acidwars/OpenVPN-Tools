@@ -20,7 +20,7 @@ function install_connection_scripts(){
     fi
     cat $OVPNPATH/server.conf | grep "client-connect" > /dev/null 2>&1
     if [[ $? == 0 ]];then
-        sed -i.bak "s/client-connect.*/client-connect $OVPNPATH/scripts/connect/g" $OVPNPATH/server.conf
+        sed -i.bak "s/client-connect.*/client-connect $OVPNPATH\/scripts\/connect/g" $OVPNPATH/server.conf
     else
         echo "client-connect "$OVPNPATH/scripts/connect"" >> $OVPNPATH/server.conf
     fi

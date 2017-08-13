@@ -26,7 +26,7 @@ function install_connection_scripts(){
     fi
     cat $OVPNPATH/server.conf | grep "client-disconnect" > /dev/null 2>&1
     if [[ $? == 0 ]];then
-        sed -i.bak "s/client-connect.*/client-disconnect $OVPNPATH/scripts/disconnect/g" $OVPNPATH/server.conf
+        sed -i.bak "s/client-connect.*/client-disconnect $OVPNPATH\/scripts\/disconnect/g" $OVPNPATH/server.conf
     else
         echo "client-disconnect "$OVPNPATH/scripts/disconnect"" >> $OVPNPATH/server.conf
     fi

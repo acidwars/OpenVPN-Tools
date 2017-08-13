@@ -13,7 +13,7 @@ function get_ovpn_user(){
 
 function install_connection_scripts(){
     chmod +x connect disconnect
-    cp connect disconnect $OVPNPATH
+    cp connect disconnect $OVPNPATH/scripts
 #    chown $OVPNUSER $OVPNPATH/scripts/connect
 #    chown $OVPNUSER $OVPNPATH/scripts/disconnect
     cat $OVPNPATH/server.conf | grep "script-security" > /dev/null 2>&1

@@ -2,6 +2,5 @@
 # This script can be executed when a client connects to the server
 DATE=$(date "+%m-%d %H:%M:%S")
 /usr/bin/logger -p local3.notice -t CONNECT FROM $common_name/$untrusted_ip
-#echo "$DATE [connected] $common_name/$untrusted_ip" >> /var/log/openvpn/"$common_name".log
-echo "$DATE [connected] $common_name/$untrusted_ip"
+echo "$DATE [connected] $common_name/$untrusted_ip" >> /var/log/openvpn/"$common_name".log
 exit 0

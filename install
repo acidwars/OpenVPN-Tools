@@ -1,10 +1,14 @@
 #!/bin/bash
 # This script will install all other scripts...
 
-OVPNPATH="/etc/openvpn"
+OVPNPATH=$1
 
 function get_ovpn_user(){
     OVPNUSER=$(cat $OVPNPATH/server.conf | grep user | awk {'print $2'})
+    if [[ $? > 0 ]];then 
+        echo "Error searching fur OpenVPN User..."
+        exit 1;
+    fi
 }
 
 function install_connection_scripts(){
@@ -20,17 +24,21 @@ function install_connection_scripts(){
     echo "client-disconnect "$OVPNPATH/scripts/disconnect"" >> $OVPNPATH/server.conf
 }
 
+if [[ -z $1 ]];then
+    echo "Usage: $0 path/to/openvpn";
+    exit 1
+fi
 test -e $OVPNPATH/server.conf
-if [[ $? == 1 ]];then
+if [[ $? > 0 ]];then
     echo "$OVPNPATH/server.conf not found!"
     exit 1
 else
     get_ovpn_user
-fi
-test -d $OVPNPATH/scripts
-if [[ $? == 1 ]];then
-    mkdir -p $OVPNPATH/scripts
-    install_connection_scripts
-    chown -R $OVPNUSER $OVPNPATH/scripts
+    test -d $OVPNPATH/scripts
+    if [[ $? == 0 ]];then
+        mkdir -p $OVPNPATH/scripts
+        install_connection_scripts
+     chown -R $OVPNUSER $OVPNPATH/scripts
+    fi
 fi
 echo "Please restart your OpenVPN-Server"

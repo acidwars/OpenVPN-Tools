@@ -54,7 +54,7 @@ else
         chown -R $OVPNUSER $OVPNPATH/scripts
     fi
     test -d /var/log/openvpn
-    if [[ $? == 0 ]];then
+    if [[ $? == 1 ]];then
         mkdir -p /var/log/openvpn
         chown -R $OVPNUSER /var/log/openvpn;
     fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+/usr/bin/logger -p local3.notice -t [DISCONNECT] from $common_name/$untrusted_ip
+DATE=$(date "%m-%d %H:%M:%S")
+echo "$DATE [disconnected] $common_name bytes_received[$bytes_received] / bytes_sent[$bytes_sent]" >> /var/log/openvpn/"$common_name".log
+exit 0

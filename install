@@ -14,14 +14,22 @@ function get_ovpn_user(){
 function install_connection_scripts(){
     chmod +x connect disconnect
     cp connect disconnect $OVPNPATH/scripts
-#    chown $OVPNUSER $OVPNPATH/scripts/connect
-#    chown $OVPNUSER $OVPNPATH/scripts/disconnect
     cat $OVPNPATH/server.conf | grep "script-security" > /dev/null 2>&1
     if [[ $? == 1 ]];then
         echo "script-security 2" >> $OVPNPATH/server.conf;
-    fi 
-    echo "client-connect "$OVPNPATH/scripts/connect"" >> $OVPNPATH/server.conf
-    echo "client-disconnect "$OVPNPATH/scripts/disconnect"" >> $OVPNPATH/server.conf
+    fi
+    cat $OVPNPATH/server.conf | grep "client-connect" > /dev/null 2>&1
+    if [[ $? == 0 ]];then
+        sed -i.bak "s/client-connect.*/client-connect $OVPNPATH/scripts/connect/g" $OVPNPATH/server.conf
+    else
+        echo "client-connect "$OVPNPATH/scripts/connect"" >> $OVPNPATH/server.conf
+    fi
+    cat $OVPNPATH/server.conf | grep "client-disconnect" > /dev/null 2>&1
+    if [[ $? == 0 ]];then
+        sed -i.bak "s/client-connect.*/client-disconnect $OVPNPATH/scripts/disconnect/g" $OVPNPATH/server.conf
+    else
+        echo "client-disconnect "$OVPNPATH/scripts/disconnect"" >> $OVPNPATH/server.conf
+    fi
 }
 
 if [[ $UID > 0 ]];then

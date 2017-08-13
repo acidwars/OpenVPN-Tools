@@ -34,7 +34,7 @@ if [[ -z $1 ]];then
     exit 1
 fi
 test -e $OVPNPATH/server.conf
-if [[ $? > 0 ]];then
+if [[ $? == 1 ]];then
     echo "$OVPNPATH/server.conf not found!"
     exit 1
 else
@@ -43,7 +43,9 @@ else
     if [[ $? == 0 ]];then
         mkdir -p $OVPNPATH/scripts
         install_connection_scripts
-     chown -R $OVPNUSER $OVPNPATH/scripts
+        chown -R $OVPNUSER $OVPNPATH/scripts
     fi
+    test -d /var/log/openvpn
+    if [[ $? == 0 ]];then
 fi
 echo "Please restart your OpenVPN-Server"

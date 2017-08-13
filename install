@@ -40,7 +40,7 @@ if [[ $? == 1 ]];then
 else
     get_ovpn_user
     test -d $OVPNPATH/scripts
-    if [[ $? == 0 ]];then
+    if [[ $? == 1 ]];then
         mkdir -p $OVPNPATH/scripts
         install_connection_scripts
         chown -R $OVPNUSER $OVPNPATH/scripts
